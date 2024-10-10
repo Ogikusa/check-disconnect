@@ -1,3 +1,4 @@
+import { checkInterfaces, checkInternetConnection } from "./lib/check-disconnection.ts";
 import { delay } from "./lib/delay.ts";
 import select from "./lib/select.ts";
 
@@ -12,25 +13,8 @@ const selectedNetwork = await select(networksInLauching);
 
 console.log(`👀 Watching your network: ${selectedNetwork} `);
 
-let connectStatus: "connected" | "disconnected" | "wating" = "connected";
 while (true) {
-  const currentTime = new Date().toLocaleString("ja-JP");
-  const networks = Deno.networkInterfaces();
-  if (!networks.some((v) => v.name === selectedNetwork)) {
-    if (connectStatus === "connected") {
-      connectStatus = "disconnected";
-      console.log(
-        `🔥 The network ${selectedNetwork} disconnected at ${currentTime}`
-      );
-    }
-  } else {
-    if (connectStatus === "disconnected") {
-      console.log(`✓ Connected Again! It's ${currentTime}`);
-      connectStatus = "wating";
-    }
-    if (connectStatus === "wating") {
-      connectStatus = "connected";
-    }
-  }
-  await delay(50);
+  checkInterfaces(selectedNetwork);
+  checkInternetConnection()
+  await delay(1000);
 }
