@@ -1,4 +1,4 @@
-### Check Disconnect
+
 This is the deno application that you can see the count of the network disconnection.
 
 ## How to use?
