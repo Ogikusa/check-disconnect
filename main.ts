@@ -1,6 +1,7 @@
 import { checkInterfaces, checkInternetConnection } from "./lib/check-disconnection.ts";
 import { delay } from "./lib/delay.ts";
 import select from "./lib/select.ts";
+import settings from "./settings.json" with { type: "json" }
 
 const networksInLauching = Array.from(
   new Set(Deno.networkInterfaces().map((v) => v.name))
@@ -16,5 +17,5 @@ console.log(`👀 Watching your network: ${selectedNetwork} `);
 while (true) {
   checkInterfaces(selectedNetwork);
   checkInternetConnection()
-  await delay(1000);
+  await delay(settings.delay);
 }
