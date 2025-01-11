@@ -1,3 +1,5 @@
+import settings from "../settings.json" with { type: "json" }
+
 type Status = "connected" | "disconnected" | "wating";
 
 //TODO クロージャを入れる
@@ -29,7 +31,7 @@ export function checkInternetConnection() {
   const currentTime = new Date().toLocaleString("ja-JP");
   if (environment === "windows") {
     const pingCommand = new Deno.Command("ping", {
-      args: ["8.8.8.8", "-n", "1"],
+      args: ["8.8.8.8", "-n", "1", "-w", settings.delay.toString()],
     });
     const out = pingCommand.outputSync();
     if (out.code !== 0) {
