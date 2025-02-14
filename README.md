@@ -1,3 +1,6 @@
+頻繁にネットが切れる TM さんのために作りました
+
+---
 
 This is the deno application that you can see the count of the network disconnection.
 
